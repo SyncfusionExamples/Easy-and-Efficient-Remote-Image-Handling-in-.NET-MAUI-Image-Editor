@@ -96,20 +96,35 @@ namespace RemoteImageHandlingSample
         /// Asynchronously copies data from the source stream to the destination stream up to the specified byte limit.
         /// </summary>
         /// <param name="source">The stream source.</param>
-        /// <param name="stream">The stream to write data to.</param>
+        /// <param name="destination">The stream to write data to.</param>
         /// <param name="limit">The maximum number of bytes to copy from the source stream.</param>
         /// <param name="cancelToken">A cancellation token.</param>
         /// <returns>A task that represents the asynchronous copy operation.</returns>
-        private static async Task CopyWithLimitedBytes(Stream source, Stream stream, long limit, CancellationToken cancelToken)
+        private static async Task CopyWithLimitedBytes(Stream source, Stream destination, long limit, CancellationToken cancelToken)
         {
             var buffer = new byte[64 * 1024];
-            long total = 0; int read;
-            while ((read = await source.ReadAsync(buffer, cancelToken)) > 0)
+            long total = 0;
+
+            while (total < limit)
             {
+                // Read no more than what remains up to the limit
+                int toRead = (int)Math.Min(buffer.Length, limit - total);
+                int read = await source.ReadAsync(buffer.AsMemory(0, toRead), cancelToken).ConfigureAwait(false);
+                if (read == 0)
+                {
+                    // End of source
+                    break;
+                }
+
+                await destination.WriteAsync(buffer.AsMemory(0, read), cancelToken).ConfigureAwait(false);
                 total += read;
-                await stream.WriteAsync(buffer.AsMemory(0, read), cancelToken);
             }
-            stream.Position = 0;
+
+            // Only rewind if the destination supports seeking (optional for MemoryStream).
+            if (destination.CanSeek)
+            {
+                destination.Position = 0;
+            }
         }
 
         /// <summary>
