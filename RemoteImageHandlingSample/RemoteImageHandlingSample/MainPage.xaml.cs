@@ -22,27 +22,18 @@ namespace RemoteImageHandlingSample
             try
             {
                 Busy.IsRunning = true;
-
                 var vm = BindingContext as ComboBoxViewModel;
-                if (vm?.SelectedOption == null || vm.SelectedOption.Urls.Length == 0)
+                if (vm?.SelectedOption == null)
                 {
                     await DisplayAlertAsync("No selection", "Please select an image category.", "OK");
                     return;
                 }
 
-                if (vm.SelectedOption.Name == "High Resolution Images")
-                {
-                    imageEditor.Source = ImageSource.FromResource("RemoteImageHandlingSample.Resources.Images.image.jpg");
-                }
-                else
-                {
-                    // Pick the first URL or random if you prefer
-                    var url = vm.SelectedOption.Urls[0];
-                    using var safe = await SafeImageIO.FromUrlAsync(url, CancellationToken.None);
-                    var bytes = (safe as MemoryStream)?.ToArray() ?? ReadAllBytes(safe);
-                    imageEditor.Source = ImageSource.FromStream(() => new MemoryStream(bytes, writable: false));
-                }
-               
+                // Pick the first URL or random if you prefer
+                var url = vm.SelectedOption.Urls[0];
+                using var safe = await SafeImageIO.FromUrlAsync(url, CancellationToken.None);
+                var bytes = (safe as MemoryStream)?.ToArray() ?? ReadAllBytes(safe);
+                imageEditor.Source = ImageSource.FromStream(() => new MemoryStream(bytes, writable: false));
             }
             catch (Exception ex)
             {

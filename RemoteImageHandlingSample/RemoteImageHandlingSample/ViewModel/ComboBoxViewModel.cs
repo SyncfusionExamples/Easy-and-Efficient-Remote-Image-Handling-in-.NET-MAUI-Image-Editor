@@ -27,7 +27,11 @@ namespace RemoteImageHandlingSample
                 new ImageOption
                 {
                     Name = "High Resolution Images",
-                    Urls = new[]{""}, // Can handle high resolution images by using valid urls.
+                    Urls = new[]
+                    {
+                        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixid=Mnwy%E2%80%A6&w=4000",
+                       // Can handle high resolution images by using valid urls.
+                    }
                 },
                 new ImageOption
                 {
@@ -50,7 +54,7 @@ namespace RemoteImageHandlingSample
                     Name = "Large Size Images",
                     Urls = new[]
                     {
-                        "https://placehold.co/4096x4096.png",
+                        "https://images.pexels.com/photos/414837/pexels-photo-414837.jpeg",
                     }
                 }
             };
