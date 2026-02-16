@@ -67,9 +67,9 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0-rc.2.25502.107" />
-		<PackageReference Include="SkiaSharp" Version="3.119.1" />
-		<PackageReference Include="Syncfusion.Maui.ImageEditor" Version="31.2.10" />
-		<PackageReference Include="Syncfusion.Maui.Inputs" Version="31.2.12" />
+		<PackageReference Include="SkiaSharp" Version="*" />
+		<PackageReference Include="Syncfusion.Maui.ImageEditor" Version="*" />
+		<PackageReference Include="Syncfusion.Maui.Inputs" Version="*" />
 	</ItemGroup>
 
 </Project>
