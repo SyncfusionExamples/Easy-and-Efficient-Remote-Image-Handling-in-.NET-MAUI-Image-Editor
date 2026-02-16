@@ -5,6 +5,9 @@ using System.Net.Http.Json;
 
 namespace RemoteImageHandlingSample
 {
+    /// <summary>
+    /// Represents the main page of the application, providing the user interface and event handling for image selection and editing.
+    /// </summary>
     public partial class MainPage : ContentPage
     {
         public MainPage()

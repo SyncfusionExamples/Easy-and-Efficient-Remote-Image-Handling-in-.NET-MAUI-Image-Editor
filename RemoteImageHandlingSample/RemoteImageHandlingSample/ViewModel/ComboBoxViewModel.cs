@@ -5,6 +5,9 @@ using System.Text;
 
 namespace RemoteImageHandlingSample
 {
+    /// <summary>
+    /// Represents a view model for a combo box that provides a collection of selectable image options and tracks the currently selected option.
+    /// </summary>
     public class ComboBoxViewModel
     {
         /// <summary>
@@ -72,10 +75,12 @@ namespace RemoteImageHandlingSample
         /// Gets or sets the name associated with the object.
         /// </summary>
         public string Name { get; set; } = "";
+
         /// <summary>
         /// Gets or sets the collection of URLs associated with the instance.
         /// </summary>
         public string[] Urls { get; set; } = [];
+
         /// <summary>
         /// Returns a string that represents the current object, using its name.
         /// </summary>

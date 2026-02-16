@@ -5,7 +5,9 @@ using System.Text;
 
 namespace RemoteImageHandlingSample
 {
-    // Safe image loading and sanitization
+    /// <summary>
+    /// Provides static methods and constants for securely processing and sanitizing image data, including downloading, validating, and resizing images with enforced limits on size and format.
+    /// </summary>
     public static class SafeImageIO
     {
         /// <summary>
