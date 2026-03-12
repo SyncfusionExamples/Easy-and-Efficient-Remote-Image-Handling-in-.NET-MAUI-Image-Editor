@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:imageEditor="clr-namespace:Syncfusion.Maui.ImageEditor;assembly=Syncfusion.Maui.ImageEditor"
+             xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+             xmlns:local="clr-namespace:RemoteImageHandlingSample"
+             x:Class="RemoteImageHandlingSample.MainPage">
+    <ContentPage.BindingContext>
+        <local:ComboBoxViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="Auto,*"
+          Padding="5">
+        <Grid Margin="5"
+              HorizontalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <editors:SfComboBox x:Name="comboBox"
+                                WidthRequest="{OnPlatform Default=265, Android=200, iOS=200}"
+                                ItemsSource="{Binding Images}"
+                                DisplayMemberPath="Name"
+                                SelectedItem="{Binding SelectedOption, Mode=TwoWay}"
+                                Margin="{OnPlatform Default='0,0,10,0', Android='5,0,5,0'}" />
+            <Button Text="Load Image"
+                    Grid.Column="1"
+                    Clicked="OnLoadImageClicked"
+                    Margin="0,0,10,0" />
+            <ActivityIndicator x:Name="Busy"
+                               HeightRequest="30"
+                               Grid.Column="2"
+                               IsVisible="{Binding IsRunning, Source={x:Reference Busy}}"
+                               IsRunning="False" />
+        </Grid>
+        <imageEditor:SfImageEditor x:Name="imageEditor"
+                                   Grid.Row="1" />
+    </Grid>
+</ContentPage>
