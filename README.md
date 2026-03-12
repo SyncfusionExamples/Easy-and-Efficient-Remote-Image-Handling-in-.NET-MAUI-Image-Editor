@@ -1,115 +1,62 @@
-# Easy and Efficient Remote Image Handling in .NET MAUI Image Editor
-A robust, privacy-minded pipeline for sanitizing remote images before loading them into Syncfusion® .NET MAUI ImageEditor using SkiaSharp.
+# Easy & Private Remote Image Handling for .NET MAUI ImageEditor
 
-## Overview
-This project demonstrates how to safely and efficiently handle remote images in .NET MAUI applications. It addresses common challenges like memory constraints, corrupted data, EXIF metadata privacy concerns, and performance optimization.
+A compact, privacy-first pipeline to safely fetch, sanitize, and load remote images into Syncfusion® .NET MAUI ImageEditor using SkiaSharp. Handles corrupted data, EXIF privacy, memory limits, and cross-platform compatibility.
 
-## Features
-### Strict Size Limits
-* Maximum file size enforcement to prevent excessive downloads.
-* Maximum image resolution checks to prevent memory exhaustion.
-
-### File Signature Validation
-
-* Magic bytes validation for JPEG and PNG formats.
-* Content-Type header verification for additional safety.
-
-### Privacy Protection
-
-* Strips EXIF metadata (location, camera info, etc.) when re-encoding.
-* Prevents unintentional exposure of sensitive information.
-
-### Robust Image Handling
-
-* Automatic EXIF orientation correction
-* Smart downscaling while preserving aspect ratio
-
-### UI-Ready Output
-
-* Sanitized streams compatible with ImageSource.FromStream
-* Seamless integration with Syncfusion® .NET MAUI ImageEditor
+## Highlights
+- Enforces file size and resolution limits to prevent excessive memory use  
+- Validates file signatures (magic bytes) and Content-Type headers  
+- Corrects EXIF orientation and strips metadata on re-encode (privacy)  
+- Smart downscaling that preserves aspect ratio and quality  
+- Produces ImageSource-compatible streams for direct use with Syncfusion ImageEditor
 
 ## Prerequisites
-* .NET 8.0 or later
-* Visual Studio 2022 (17.8 or later) or Visual Studio Code
-* Syncfusion® .NET MAUI controls (Community or Commercial license)
-* SkiaSharp NuGet package
+- .NET 8.0+  
+- Visual Studio 2022 (17.8+) or VS Code  
+- Syncfusion .NET MAUI ImageEditor (Community/Commercial)  
+- SkiaSharp
 
-## Installation
-1. Clone the repository:
+## Quick Install
+1. Clone:
+   - git clone https://github.com/SyncfusionExamples/Easy-and-Efficient-Remote-Image-Handling-in-.NET-MAUI-Image-Editor.git
+   - cd RemoteImageHandlingSample
+2. Add packages:
+   - dotnet add package Syncfusion.Maui.ImageEditor
+   - dotnet add package SkiaSharp
+   - dotnet add package SkiaSharp.Views.Maui.Controls
+3. Register Syncfusion license in MauiProgram.cs:
+   - Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("YOUR_LICENSE_KEY");
 
- - git clone https://github.com/SyncfusionExamples/Easy-and-Efficient-Remote-Image-Handling-in-.NET-MAUI-Image-Editor.git
- - cd RemoteImageHandlingSample
+## Key Components (API)
+- CopyWithLimitedBytes(source, destination, MaxBytes, cancellationToken) — stream copy with byte limit  
+- ValidatingFileSignatures(imageBytes) — magic-bytes validation for JPEG/PNG  
+- ApplyOrientation(bitmap, encodedOrigin) — EXIF orientation correction  
+- ImageResizing(bitmap, maxWidth, maxHeight) — quality-preserving downscale  
+- ImageSanitizing(remoteStream, contentType, cancellationToken) — strips metadata and re-encodes
 
-2. Install required NuGet packages:
+## Why Use This
+- Security: Rejects malformed or malicious files before rendering  
+- Performance: Predictable memory and improved load times  
+- Privacy: Removes hidden EXIF data that can expose users  
+- Compatibility: Works across iOS, Android, Windows, macOS
 
- - dotnet add package Syncfusion.Maui.ImageEditor
- - dotnet add package SkiaSharp
- - dotnet add package SkiaSharp.Views.Maui.Controls
+## Screenshort
 
-3. Configure Syncfusion license:
-Register for a free Syncfusion license
-Add the license key in MauiProgram.cs:
+![Remote Image Handling in .NET MAUI ImageEditor](RemoteImageHandling.gif)
 
- - Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("YOUR_LICENSE_KEY");
-
-## Key Components
-1. Size-Limited Stream Copy
-Efficiently transfers remote data with byte-count enforcement:
-
- - await CopyWithLimitedBytes(source, destination, MaxBytes, cancellationToken);
-
-2. File Signature Validation
-Validates magic bytes instead of trusting file extensions:
-
-- bool isValid = ValidatingFileSignatures(imageBytes);
-
-3. EXIF Orientation Handling
-Corrects photo rotation based on EXIF metadata:
-
- - var oriented = ApplyOrientation(bitmap, codec.EncodedOrigin);
-
-4. Smart Downscaling
-Resizes large images while preserving quality:
-
-- var resized = ImageResizing(bitmap, maxWidth, maxHeight);
-
-5. Privacy-Safe Re-encoding
-Strips metadata and re-encodes the image:
-
-- var sanitizedStream = await ImageSanitizing(remoteStream, contentType, cancellationToken);
-
-## Why This Matters
-
-* Security: Prevents malicious or corrupted files from crashing your app
-
-* Performance: Keeps memory usage predictable and rendering fast
-
-* Privacy: Protects users by removing hidden metadata
-
-* Compatibility: Works seamlessly across iOS, Android, Windows, and macOS
-
-## Benefits
-* For Developers: Simple API, robust error handling, MVVM-ready
-* For Users: Faster load times, better privacy, consistent image display
-* For Apps: Lower memory footprint, improved stability, professional UX
-
-## Documentation
-For detailed implementation steps, refer to the blog article.
-
-For Syncfusion® .NET MAUI ImageEditor documentation, visit:
-
-* [Getting Started Guide](https://help.syncfusion.com/maui/imageeditor/getting-started)
-* [API Reference](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.ImageEditor.html)
-
-## Technologies Used
-[.NET MAUI](https://dotnet.microsoft.com/en-us/apps/maui) - Cross-platform UI framework
-[Syncfusion® .NET MAUI ImageEditor](https://www.syncfusion.com/maui-controls/maui-image-editor) - Image editing control
-[SkiaSharp](https://github.com/mono/SkiaSharp) - Cross-platform 2D graphics library
+## Resources
+- Syncfusion ImageEditor docs: https://help.syncfusion.com/maui/imageeditor/getting-started  
+- SkiaSharp: https://github.com/mono/SkiaSharp  
+- .NET MAUI: https://dotnet.microsoft.com/apps/maui
 
 ## Support
-For questions or issues:
+For current Syncfusion customers, the newest version of Essential Studio is available from the [license and downloads page](https://www.syncfusion.com/Account/Login?ReturnUrl=%2faccount%2fdownloads). If you are not yet a customer, you can try our 30-day free [trial](https://www.syncfusion.com/downloads) to check out these new features. 
 
-* Open an issue in this repository.
-* Visit [Syncfusion Forums](https://www.syncfusion.com/forums/maui).
-* [Check .NET MAUI Documentation](https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-10.0).
+For questions, you can contact us through our support [forums](https://www.syncfusion.com/forums), [feedback portal](https://www.syncfusion.com/feedback), or support [portal](https://support.syncfusion.com/). We are always happy to assist you!
+
+## Troubleshooting
+
+### Path Too Long Exception
+
+If you are facing a path too long exception when building this example project, close Visual Studio and rename the repository to short and build the project.
+
+For a step-by-step procedure, refer to the link.
